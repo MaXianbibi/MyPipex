@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:40:03 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/08/31 18:37:50 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/08/31 21:03:31 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "./libft.h"
 # include <errno.h>
-# include <stdio.h>
 # include <fcntl.h>
 
 typedef struct s_pipe

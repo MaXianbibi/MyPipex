@@ -6,12 +6,11 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 09:44:42 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/08/31 18:34:03 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/08/31 21:07:41 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
-#include <stdio.h>
 
 int	main(int argc, char **argv, char **envp)
 {

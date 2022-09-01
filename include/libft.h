@@ -6,19 +6,15 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 15:50:08 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/08/12 21:54:36 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/08/31 21:07:12 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdarg.h>
-# include <fcntl.h>
-# include <stdbool.h>
 
 # define BUFFER_SIZE 5
 
