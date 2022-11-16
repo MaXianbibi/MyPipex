@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 21:46:36 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/08/31 18:32:23 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/15 18:11:30 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ char	*find(char **envp, char *cmd)
 
 	i = 0;
 	path_env = ft_split(find_path_line(envp), ':');
-	if (!path_env)
-		return (print_error());
 	while (path_env[i] != NULL)
 	{
 		tmp = ft_strjoin(path_env[i], "/");
@@ -63,7 +61,10 @@ char	*find(char **envp, char *cmd)
 	}
 	path_to_command = find_path(path_env, cmd);
 	if (!path_to_command)
+	{
+		ft_free_chartable(path_env);
 		return (print_error());
+	}
 	ft_free_chartable(path_env);
 	return (path_to_command);
 }

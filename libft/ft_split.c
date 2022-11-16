@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 15:39:39 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/04/13 16:13:13 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/15 17:55:13 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ char	**ft_split(char const *s, char c)
 	int		index;
 	char	**split;
 
-	split = malloc((count_words(s, c) + 1) * sizeof(char *));
-	if (!split)
+	if (s == NULL)
 		return (NULL);
+	split = malloc((count_words(s, c) + 1) * sizeof(char *));
 	i = 0;
 	j = 0;
 	index = -1;

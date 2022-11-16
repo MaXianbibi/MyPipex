@@ -6,22 +6,25 @@
 #    By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/20 20:45:07 by gbelange          #+#    #+#              #
-#    Updated: 2022/08/12 16:58:54 by jmorneau         ###   ########.fr        #
+#    Updated: 2022/11/15 17:47:13 by jmorneau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 				
-NAME = pipex.a
-LIBFT = libft.a
+NAME = pipex
+LIBFT = libft/libft.a
 CC = @gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 RM = @rm -f
-OBJS = $(SRC_FILES:.c=.o)
 INCLUDE = -I include/
 
 SRC_DIR = src/
+SRC_FILES =	execute.c find_path.c pipex.c print_error.c
 
-.c.o:
+OBJ_DIR = objs/
+OBJS = ${addprefix ${OBJ_DIR}, $(SRC_FILES:.c=.o)}
+
+${OBJ_DIR}%.o: ${SRC_DIR}%.c
 	@echo "$(_BLUE)$(_BOLD)Compilation Printf: $< $(_END)"
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
@@ -42,24 +45,23 @@ _IBLUE=$'\x1b[44m
 _IPURPLE=$'\x1b[45m
 _IWHITE=$'\x1b[47m
 
-SRC_FILES =	$(wildcard $(SRC_DIR)*.c)
-
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): ${OBJ_DIR} $(OBJS) ${LIBFT}
+	${CC} $(CFLAGS) ${OBJS} ${LIBFT} -o $@
+
+${OBJ_DIR}:
+	mkdir -p $@
+
+${LIBFT}:
 	@make -C ./libft
-	@cp libft/libft.a .
-	@mv libft.a $(NAME)
-	@ar rcs $(NAME) $(OBJS)
-	gcc $(CFLAGS) pipex.a -o pipex
 
 clean:
 	@$(MAKE) clean -C ./libft
-	@$(RM) src/*.o
+	@$(RM) -r ${OBJ_DIR}
 
 fclean: clean
 	@$(MAKE) fclean -C ./libft
 	@$(RM) $(NAME)
-	rm ./a.out
 
 re: fclean all
