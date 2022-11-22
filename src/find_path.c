@@ -6,13 +6,13 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 21:46:36 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/15 18:11:30 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:35:49 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-static char	*find_path_line(char **envp)
+char	*find_path_line(char **envp)
 {
 	int	i;
 
@@ -37,7 +37,7 @@ static char	*find_path(char **path, char *cmd)
 		tmp = ft_strjoin(path[i], cmd);
 		if (access(tmp, F_OK) == 0)
 			return (tmp);
-		free (tmp);
+		free(tmp);
 		i++;
 	}
 	return (NULL);
@@ -55,7 +55,7 @@ char	*find(char **envp, char *cmd)
 	while (path_env[i] != NULL)
 	{
 		tmp = ft_strjoin(path_env[i], "/");
-		free (path_env[i]);
+		free(path_env[i]);
 		path_env[i] = tmp;
 		i++;
 	}
@@ -63,7 +63,7 @@ char	*find(char **envp, char *cmd)
 	if (!path_to_command)
 	{
 		ft_free_chartable(path_env);
-		return (print_error());
+		return (print_ncmd(cmd));
 	}
 	ft_free_chartable(path_env);
 	return (path_to_command);

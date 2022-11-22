@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 09:44:42 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/15 18:18:21 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:49:33 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ static int	ft_norminette(char **argv)
 	return (0);
 }
 
+static void	ft_norminette_v2(t_pipe *pipex)
+{
+	ft_free_chartable(pipex->argv);
+	free(pipex->path_to_command);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	int		nb_cmd;
@@ -49,13 +55,13 @@ int	main(int argc, char **argv, char **envp)
 	while (nb_cmd < argc - 1)
 	{
 		pipex.argv = ft_split(argv[nb_cmd], ' ');
-		pipex.path_to_command = find(envp, pipex.argv[0]);
-		if (!pipex.path_to_command)
-			return (ft_norminette(pipex.argv));
-		exec_cmd(&pipex, nb_cmd, argc);
-		ft_free_chartable(pipex.argv);
-		free(pipex.path_to_command);
-		nb_cmd++;
+		if (*envp && access(pipex.argv[0], F_OK))
+		{
+			pipex.path_to_command = find(envp, pipex.argv[0]);
+			if (!pipex.path_to_command)
+				return (ft_norminette(pipex.argv));
+		}
+		exec_cmd(&pipex, nb_cmd++, argc);
+		ft_norminette_v2(&pipex);
 	}
-	return (0);
 }

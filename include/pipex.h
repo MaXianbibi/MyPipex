@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:40:03 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/11 21:49:37 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:33:40 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ void	exec_cmd(t_pipe *pipex, int nb_cmd, int argc);
 void	*print_error(void);
 int		print_error_int(void);
 int		print_arg(int n);
+void	*print_ncmd(char *cmd);
+char	*find_path_line(char **envp);
 
 #endif

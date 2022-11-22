@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 21:59:02 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/09/14 17:35:48 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:50:10 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ static int	execute_final(t_pipe *pipex)
 	dup2(pipex->file_close, STDOUT_FILENO);
 	close(pipex->file_close);
 	if (execve(pipex->path_to_command, pipex->argv, pipex->env) == -1)
-		return (print_error_int());
+	{
+		print_ncmd(pipex->path_to_command);
+		return (1);
+	}
 	return (0);
 }
 
@@ -30,7 +33,10 @@ static int	execute_first(t_pipe *pipex)
 	dup2(pipex->fd[1], STDOUT_FILENO);
 	close(pipex->file_open);
 	if (execve(pipex->path_to_command, pipex->argv, pipex->env) == -1)
-		return (print_error_int());
+	{
+		print_ncmd(pipex->path_to_command);
+		return (1);
+	}
 	return (0);
 }
 
@@ -38,6 +44,8 @@ void	exec_cmd(t_pipe *pipex, int nb_cmd, int argc)
 {
 	int	id;
 
+	if (!pipex->path_to_command)
+			pipex->path_to_command = ft_strdup(pipex->argv[0]);
 	id = fork();
 	if (id == -1)
 		return ;

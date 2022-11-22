@@ -1,43 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   ft_tables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/12 22:04:16 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/17 18:37:29 by jmorneau         ###   ########.fr       */
+/*   Created: 2022/05/25 16:04:08 by jmorneau          #+#    #+#             */
+/*   Updated: 2022/11/17 18:33:10 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-void	*print_error(void)
+int	ft_chartable_linecount(char **table)
 {
-	perror("ERROR ");
-	return (NULL);
+	int	count;
+
+	count = 0;
+	while (table[count])
+		count++;
+	return (count);
 }
 
-int	print_error_int(void)
+void	ft_free_chartable(char **table)
 {
-	perror("ERROR ");
-	return (1);
-}
+	int	i;
 
-int	print_arg(int n)
-{
-	if (n != 5)
+	i = 0;
+	while (table && table[i])
 	{
-		ft_putstr_fd("Error: The number of arguments is invalid\n", 2);
-		return (1);
+		free(table[i]);
+		i++;
 	}
-	return (0);
-}
-
-void	*print_ncmd(char *cmd)
-{
-	ft_putstr_fd("Error : ", 2);
-	ft_putstr_fd("command not found : ", 2);
-	ft_putendl_fd(cmd, 2);
-	return (0);
+	if (table)
+		free(table);
 }
