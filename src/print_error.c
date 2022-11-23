@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 22:04:16 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/17 18:37:29 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/23 00:06:29 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,16 @@ int	print_arg(int n)
 
 void	*print_ncmd(char *cmd)
 {
-	ft_putstr_fd("Error : ", 2);
-	ft_putstr_fd("command not found : ", 2);
-	ft_putendl_fd(cmd, 2);
+	if (!cmd)
+	{
+		ft_putstr_fd("Error : ", 2);
+		ft_putstr_fd("cmd cannot be NULL \n", 2);
+	}
+	else
+	{
+		ft_putstr_fd("Error : ", 2);
+		ft_putstr_fd("command not found : ", 2);
+		ft_putendl_fd(cmd, 2);
+	}
 	return (0);
 }

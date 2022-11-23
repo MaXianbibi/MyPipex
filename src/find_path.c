@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 21:46:36 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/22 21:13:21 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/23 00:06:04 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*find_path(char **path, char *cmd)
 	char	*tmp;
 
 	i = 0;
-	while (path[i] != NULL)
+	while (cmd != NULL && path[i] != NULL)
 	{
 		tmp = ft_strjoin(path[i], cmd);
 		if (access(tmp, F_OK) == 0)

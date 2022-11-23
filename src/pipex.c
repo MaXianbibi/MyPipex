@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 09:44:42 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/22 21:12:59 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/22 23:55:51 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ft_norminette_v2(t_pipe *pipex)
 {
 	if (pipex->argv)
 		ft_free_chartable(pipex->argv);
+	if (pipex->path_to_command)
+		free(pipex->path_to_command);
 	pipex->path_to_command = NULL;
 }
 
@@ -52,8 +54,8 @@ int	main(int argc, char **argv, char **envp)
 		if (*envp && access(pipex.argv[0], F_OK))
 		{
 			pipex.path_to_command = find(envp, pipex.argv[0]);
-			if (!pipex.path_to_command)
-				pipex.path_to_command = pipex.argv[0];
+			if (!pipex.path_to_command && pipex.argv[0])
+				pipex.path_to_command = ft_strdup(pipex.argv[0]);
 		}
 		exec_cmd(&pipex, nb_cmd, argc);
 		ft_norminette_v2(&pipex);

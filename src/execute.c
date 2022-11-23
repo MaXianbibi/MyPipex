@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 21:59:02 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/22 21:36:51 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/23 00:05:39 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,20 @@ static int	execute_final(t_pipe *pipex)
 
 static int	execute_first(t_pipe *pipex)
 {
+	int	fd;
+
+	fd = pipex->file_open;
 	close(pipex->fd[0]);
 	dup2(pipex->file_open, STDIN_FILENO);
 	dup2(pipex->fd[1], STDOUT_FILENO);
 	close(pipex->file_open);
-	if (execve(pipex->path_to_command, pipex->argv, pipex->env) == -1)
+	if (fd)
 	{
-		print_ncmd(pipex->path_to_command);
-		exit (1);
+		if (execve(pipex->path_to_command, pipex->argv, pipex->env) == -1)
+		{
+			print_ncmd(pipex->path_to_command);
+			exit (1);
+		}
 	}
 	exit (0);
 }
@@ -44,8 +50,8 @@ void	*exec_cmd(t_pipe *pipex, int nb_cmd, int argc)
 {
 	pid_t	id;
 
-	if (!pipex->path_to_command)
-		pipex->path_to_command = pipex->argv[0];
+	if (!pipex->path_to_command && pipex->argv[0])
+		pipex->path_to_command = ft_strdup(pipex->argv[0]);
 	id = fork();
 	if (id == -1)
 		return (print_error());
