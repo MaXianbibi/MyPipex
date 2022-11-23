@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 09:44:42 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/17 18:49:33 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/22 21:12:59 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,11 @@ static int	check_file(char *str)
 	return (fd);
 }
 
-static int	ft_norminette(char **argv)
+void	ft_norminette_v2(t_pipe *pipex)
 {
-	ft_free_chartable(argv);
-	return (0);
-}
-
-static void	ft_norminette_v2(t_pipe *pipex)
-{
-	ft_free_chartable(pipex->argv);
-	free(pipex->path_to_command);
+	if (pipex->argv)
+		ft_free_chartable(pipex->argv);
+	pipex->path_to_command = NULL;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -45,11 +40,10 @@ int	main(int argc, char **argv, char **envp)
 
 	if (print_arg(argc))
 		return (0);
+	ft_memset(&pipex, 0, sizeof(pipex));
 	pipex.env = envp;
 	nb_cmd = 2;
 	pipex.file_open = check_file(argv[1]);
-	if (!pipex.file_open)
-		return (0);
 	pipex.file_close = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	pipe(pipex.fd);
 	while (nb_cmd < argc - 1)
@@ -59,9 +53,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			pipex.path_to_command = find(envp, pipex.argv[0]);
 			if (!pipex.path_to_command)
-				return (ft_norminette(pipex.argv));
+				pipex.path_to_command = pipex.argv[0];
 		}
-		exec_cmd(&pipex, nb_cmd++, argc);
+		exec_cmd(&pipex, nb_cmd, argc);
 		ft_norminette_v2(&pipex);
+		nb_cmd++;
 	}
 }

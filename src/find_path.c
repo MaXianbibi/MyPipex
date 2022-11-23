@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 21:46:36 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/17 18:35:49 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/22 21:13:21 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*find(char **envp, char *cmd)
 	if (!path_to_command)
 	{
 		ft_free_chartable(path_env);
-		return (print_ncmd(cmd));
+		return (0);
 	}
 	ft_free_chartable(path_env);
 	return (path_to_command);

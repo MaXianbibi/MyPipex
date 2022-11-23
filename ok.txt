@@ -1,0 +1,11 @@
+total 120
+drwxr-xr-x  10 jmorneau  2022_quebec    340 Nov 22 04:50 .
+drwxr-xr-x@  9 jmorneau  2022_quebec    306 Nov 22 03:25 ..
+drwxr-xr-x  13 jmorneau  2022_quebec    442 Nov 22 03:26 .git
+-rw-r--r--@  1 jmorneau  2022_quebec   1834 Nov 22 03:24 Makefile
+drwxr-xr-x@  4 jmorneau  2022_quebec    136 Nov 15 21:26 include
+drwxr-xr-x@ 95 jmorneau  2022_quebec   3230 Nov 22 04:49 libft
+drwxr-xr-x   6 jmorneau  2022_quebec    204 Nov 22 04:50 objs
+-rwxr-xr-x   1 jmorneau  2022_quebec      0 Nov 22 04:50 ok.txt
+-rwxr-xr-x   1 jmorneau  2022_quebec  54912 Nov 22 04:50 pipex
+drwxr-xr-x@  6 jmorneau  2022_quebec    204 Nov 15 21:26 src

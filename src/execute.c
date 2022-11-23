@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 21:59:02 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/17 18:50:10 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/22 21:36:51 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static int	execute_final(t_pipe *pipex)
 	if (execve(pipex->path_to_command, pipex->argv, pipex->env) == -1)
 	{
 		print_ncmd(pipex->path_to_command);
-		return (1);
+		exit (1);
 	}
-	return (0);
+	exit (0);
 }
 
 static int	execute_first(t_pipe *pipex)
@@ -35,25 +35,25 @@ static int	execute_first(t_pipe *pipex)
 	if (execve(pipex->path_to_command, pipex->argv, pipex->env) == -1)
 	{
 		print_ncmd(pipex->path_to_command);
-		return (1);
+		exit (1);
 	}
-	return (0);
+	exit (0);
 }
 
-void	exec_cmd(t_pipe *pipex, int nb_cmd, int argc)
+void	*exec_cmd(t_pipe *pipex, int nb_cmd, int argc)
 {
-	int	id;
+	pid_t	id;
 
 	if (!pipex->path_to_command)
-			pipex->path_to_command = ft_strdup(pipex->argv[0]);
+		pipex->path_to_command = pipex->argv[0];
 	id = fork();
 	if (id == -1)
-		return ;
+		return (print_error());
 	if (id == 0)
 	{
 		if (nb_cmd == 2)
 			execute_first(pipex);
-		else if (nb_cmd == argc - 2)
+		else if (nb_cmd == 3)
 			execute_final(pipex);
 	}
 	if (nb_cmd == 2)
@@ -65,4 +65,5 @@ void	exec_cmd(t_pipe *pipex, int nb_cmd, int argc)
 		close(pipex->file_close);
 	}
 	waitpid(id, NULL, 0);
+	return (0);
 }

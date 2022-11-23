@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:40:03 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/11/17 18:33:40 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/11/22 21:08:04 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_pipe
 
 char	*find(char **envp, char *cmd);
 char	**final_cmd(char **arg, char *read_file);
-void	exec_cmd(t_pipe *pipex, int nb_cmd, int argc);
+void	*exec_cmd(t_pipe *pipex, int nb_cmd, int argc);
 void	*print_error(void);
 int		print_error_int(void);
 int		print_arg(int n);
